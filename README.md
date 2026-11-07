@@ -13,12 +13,23 @@ Or patch locally with a built `.mpp` file, see [Building locally](#-building-loc
 ## 🩹 Patches list
 
 <!-- PATCHES_START EXPANDED -->
+> **[v1.0.0](https://github.com/way-lo/waylo-patches/releases/tag/v1.0.0)**&nbsp;&nbsp;•&nbsp;&nbsp;`main`&nbsp;&nbsp;•&nbsp;&nbsp;1 patches total
+<details open>
+<summary>📦 Podcast Addict&nbsp;&nbsp;•&nbsp;&nbsp;1 patch</summary>
+<br>
 
-#### The list of patches appears here after the first release is created.
+**Package name:** `com.bambuna.podcastaddict`
 
-| App | Patch | What it does |
-|-----|-------|--------------|
-| Podcast Addict (`com.bambuna.podcastaddict`) | Playlist swipe to remove | Swipe an episode left or right in the Playlist to remove it from the playlist. |
+**🎯 Supported versions:**
+
+| 2026.7 |
+| :---: |
+
+| 💊&nbsp;Patch | 📜&nbsp;Description | ⚙️&nbsp;Options |
+|----------|----------------|-----------|
+| [Playlist swipe to remove](#playlist-swipe-to-remove) | Swipe an episode left or right in the Playlist to remove it from the playlist. Swiping between the Playlist tabs no longer works, tapping the tab titles does. |  |
+
+</details>
 
 <!-- PATCHES_END -->
 
