@@ -1,0 +1,37 @@
+name: Build .mpp
+
+# Manual build of the patch bundle from any branch. The bundle is attached to the run as an artifact.
+# For real releases, use the Release workflow (semantic-release, as in the Morphe patches template).
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: Build patches bundle
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: read
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      - name: Setup Java
+        uses: actions/setup-java@v6
+        with:
+          distribution: 'temurin'
+          java-version: '21'
+
+      - name: Build
+        env:
+          GITHUB_ACTOR: ${{ github.actor }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: ./gradlew :patches:buildAndroid --no-daemon
+
+      - name: Upload .mpp
+        uses: actions/upload-artifact@v4
+        with:
+          name: patches-mpp
+          path: patches/build/libs/patches-*.mpp
+          if-no-files-found: error
