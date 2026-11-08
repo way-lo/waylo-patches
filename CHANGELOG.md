@@ -1,3 +1,9 @@
+## [1.0.4](https://github.com/way-lo/waylo-patches/compare/v1.0.3...v1.0.4) (2026-11-08)
+
+### 🐛 Bug Fixes
+
+* block the tab pager from every ancestor on 2026.14 ([72f5b64](https://github.com/way-lo/waylo-patches/commit/72f5b646e751c1ffc043a4ebc44736b77c44b9f1))
+
 ## [1.0.3](https://github.com/way-lo/waylo-patches/compare/v1.0.2...v1.0.3) (2026-11-08)
 
 ### 🐛 Bug Fixes
