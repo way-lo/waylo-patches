@@ -95,13 +95,15 @@ public final class PlaylistSwipeToRemove {
                     tracking = position >= 0;
                     if (tracking) {
                         // Keep parents (the tab pager) from taking horizontal drags.
-                        ViewParent parent = list.getParent();
-                        if (parent != null) parent.requestDisallowInterceptTouchEvent(true);
+                        blockParents(list);
                     }
                     return false;
 
                 case MotionEvent.ACTION_MOVE:
                     if (!tracking) return false;
+                    // Re-block on every move. Since 2026.14 a gesture host above the list un-blocks
+                    // the tab pager (ViewPager2) on the first horizontal move.
+                    blockParents(list);
                     if (swiping) return true;
                     if (floatView != null) return false; // A reorder drag is active.
 
@@ -119,10 +121,6 @@ public final class PlaylistSwipeToRemove {
                     }
                     row = child;
                     swiping = true;
-                    // Since 2026.14 the list sits in a gesture host that re-allows the tab pager to take
-                    // horizontal drags on the first move. Take the touch back for this swipe.
-                    ViewParent pager = list.getParent();
-                    if (pager != null) pager.requestDisallowInterceptTouchEvent(true);
 
                     // Cancel the list's own pending touch handling (long press, press state).
                     MotionEvent cancel = MotionEvent.obtain(event);
@@ -222,6 +220,18 @@ public final class PlaylistSwipeToRemove {
         view.setAlpha(1f);
         ViewGroup.LayoutParams params = view.getLayoutParams();
         if (params != null) params.height = ViewGroup.LayoutParams.WRAP_CONTENT;
+    }
+
+    /**
+     * Asks every ancestor not to intercept the touch. Calling only the direct parent is not enough:
+     * ViewGroup stops passing the request up at the first ancestor whose flag is already set, so
+     * after the gesture host clears the flags above itself, a request from the list never reaches
+     * the tab pager.
+     */
+    private static void blockParents(ListView list) {
+        for (ViewParent parent = list.getParent(); parent != null; parent = parent.getParent()) {
+            parent.requestDisallowInterceptTouchEvent(true);
+        }
     }
 
     private static void reset() {
