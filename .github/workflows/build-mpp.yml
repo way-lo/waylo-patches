@@ -35,10 +35,10 @@ jobs:
           # Use Gradle's GitHub mirror: services.gradle.org has been unreliable from Actions.
           sed -i -E 's#https\\://services.gradle.org/distributions/gradle-([0-9.]+)-bin.zip#https\\://github.com/gradle/gradle-distributions/releases/download/v\1/gradle-\1-bin.zip#' gradle/wrapper/gradle-wrapper.properties
           grep distributionUrl gradle/wrapper/gradle-wrapper.properties
-          if ! ./gradlew :patches:buildAndroid --no-daemon 2>&1 | tee build.log; then
-            # Surface compiler errors as annotations, which are readable without opening the log.
-            grep -E "^e: |error:|What went wrong|Could not|Exception" build.log | head -40 | while IFS= read -r line; do
-              echo "::error::${line}"
+          if ! ./gradlew :patches:buildAndroid :patches:generatePatchesList --no-daemon 2>&1 | tee build.log; then
+            # Surface the end of the log as annotations, which are readable without opening the log.
+            grep -v "^\s*at " build.log | tail -45 | while IFS= read -r line; do
+              [ -n "$line" ] && echo "::error::${line}"
             done
             exit 1
           fi
