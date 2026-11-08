@@ -32,11 +32,9 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           set -o pipefail
-          # Fall back to Gradle's GitHub mirror when services.gradle.org is down.
-          if ! curl -sfI --max-time 15 "$(sed -n 's/^distributionUrl=//p' gradle/wrapper/gradle-wrapper.properties | sed 's/\\:/:/')" >/dev/null; then
-            sed -i -E 's#https\\://services.gradle.org/distributions/gradle-([0-9.]+)-bin.zip#https\\://github.com/gradle/gradle-distributions/releases/download/v\1/gradle-\1-bin.zip#' gradle/wrapper/gradle-wrapper.properties
-            grep distributionUrl gradle/wrapper/gradle-wrapper.properties
-          fi
+          # Use Gradle's GitHub mirror: services.gradle.org has been unreliable from Actions.
+          sed -i -E 's#https\\://services.gradle.org/distributions/gradle-([0-9.]+)-bin.zip#https\\://github.com/gradle/gradle-distributions/releases/download/v\1/gradle-\1-bin.zip#' gradle/wrapper/gradle-wrapper.properties
+          grep distributionUrl gradle/wrapper/gradle-wrapper.properties
           if ! ./gradlew :patches:buildAndroid --no-daemon 2>&1 | tee build.log; then
             # Surface compiler errors as annotations, which are readable without opening the log.
             grep -E "^e: |error:|What went wrong|Could not|Exception" build.log | head -40 | while IFS= read -r line; do
