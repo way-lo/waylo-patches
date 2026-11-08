@@ -71,6 +71,10 @@ public final class PlaylistSwipeToRemove {
         swiping = false;
     }
 
+    private static boolean keepsRow(ListView list) {
+        return hostFor(list) instanceof SwipeKeepsRow;
+    }
+
     private static PlaylistRemoveHost hostFor(ListView list) {
         WeakReference<PlaylistRemoveHost> reference = hosts.get(list);
         return reference == null ? null : reference.get();
@@ -93,8 +97,9 @@ public final class PlaylistSwipeToRemove {
                     swiping = false;
                     position = list.pointToPosition((int) downX, (int) downY);
                     tracking = position >= 0;
-                    if (tracking) {
-                        // Keep parents (the tab pager) from taking horizontal drags.
+                    if (tracking && !keepsRow(list)) {
+                        // Keep parents (the tab pager) from taking horizontal drags. Lists whose
+                        // rows stay put wait for a real swipe, so pull-to-refresh keeps working.
                         blockParents(list);
                     }
                     return false;
@@ -103,7 +108,7 @@ public final class PlaylistSwipeToRemove {
                     if (!tracking) return false;
                     // Re-block on every move. Since 2026.14 a gesture host above the list un-blocks
                     // the tab pager (ViewPager2) on the first horizontal move.
-                    blockParents(list);
+                    if (swiping || !keepsRow(list)) blockParents(list);
                     if (swiping) return true;
                     if (floatView != null) return false; // A reorder drag is active.
 
@@ -116,11 +121,12 @@ public final class PlaylistSwipeToRemove {
 
                     View child = list.getChildAt(position - list.getFirstVisiblePosition());
                     if (child == null) return false;
-                    if (child instanceof ViewGroup && ((ViewGroup) child).getChildCount() > 0) {
+                    if (!keepsRow(list) && child instanceof ViewGroup && ((ViewGroup) child).getChildCount() > 0) {
                         child = ((ViewGroup) child).getChildAt(0); // The real row inside the list's wrapper.
                     }
                     row = child;
                     swiping = true;
+                    blockParents(list);
 
                     // Cancel the list's own pending touch handling (long press, press state).
                     MotionEvent cancel = MotionEvent.obtain(event);
@@ -186,7 +192,15 @@ public final class PlaylistSwipeToRemove {
             tracking = false;
 
             boolean remove = action == MotionEvent.ACTION_UP && Math.abs(dx) > width / 3f;
-            if (remove) {
+            if (remove && remover instanceof SwipeKeepsRow) {
+                // The row stays in the list: run the action and slide the row back.
+                remover.swipeRemoveAt(position);
+                swipedRow.animate()
+                        .translationX(0f)
+                        .alpha(1f)
+                        .setDuration(ANIMATION_MS)
+                        .start();
+            } else if (remove) {
                 swipedRow.animate()
                         .translationX(dx >= 0 ? width : -width)
                         .alpha(0f)

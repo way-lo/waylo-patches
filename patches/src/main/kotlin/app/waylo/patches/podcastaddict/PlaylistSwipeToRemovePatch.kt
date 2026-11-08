@@ -26,7 +26,7 @@ private val FLOAT_VIEW_TYPES = setOf("Landroid/widget/FrameLayout;", "Landroid/v
 
 @Suppress("unused")
 val playlistSwipeToRemovePatch = patch(
-    name = "Playlist swipe to remove",
+    name = "Swipe to remove from playlist",
     description = "Swipe an episode left or right in the Playlist to remove it from the playlist. " +
             "Swiping between the Playlist tabs no longer works, tapping the tab titles does.",
     default = true

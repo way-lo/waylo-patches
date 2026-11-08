@@ -75,3 +75,11 @@ internal object PlaylistTypeFingerprint : Fingerprint(
         )
     )
 )
+
+/**
+ * The background task that creates an episode list fragment's list view. It logs when the episode
+ * grid size preference is missing, right after assigning the list view to the fragment.
+ */
+internal object EpisodeListCreationFingerprint : Fingerprint(
+    strings = listOf("Episode Grid Size default value was NOT set!! - ")
+)
