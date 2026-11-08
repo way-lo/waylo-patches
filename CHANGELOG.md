@@ -1,3 +1,9 @@
+## [1.0.3](https://github.com/way-lo/waylo-patches/compare/v1.0.2...v1.0.3) (2026-11-08)
+
+### 🐛 Bug Fixes
+
+* track every Playlist tab's list, not just the last one ([26aaf9d](https://github.com/way-lo/waylo-patches/commit/26aaf9d2206b3501b88ea912ac2b7ae7a593a637))
+
 ## [1.0.2](https://github.com/way-lo/waylo-patches/compare/v1.0.1...v1.0.2) (2026-11-08)
 
 ### 🐛 Bug Fixes
