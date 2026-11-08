@@ -8,6 +8,7 @@ import android.view.ViewParent;
 import android.widget.ListView;
 
 import java.lang.ref.WeakReference;
+import java.util.WeakHashMap;
 
 /**
  * Swipe a row of the Podcast Addict Playlist left or right to remove it.
@@ -38,8 +39,12 @@ public final class PlaylistSwipeToRemove {
     private static final long ANIMATION_MS = 150;
     private static final int COLLAPSED_HEIGHT_PX = 1;
 
-    private static WeakReference<ListView> hostList;
-    private static WeakReference<PlaylistRemoveHost> host;
+    /**
+     * Every Playlist list that registered a remove listener. The app keeps several Playlist tabs
+     * (each with its own list) alive at once, so one remembered list is not enough. The values are
+     * weak because the host references its fragment, which references the list (the key).
+     */
+    private static final WeakHashMap<ListView, WeakReference<PlaylistRemoveHost>> hosts = new WeakHashMap<>();
 
     /** A touch started on a row, and has not ended. */
     private static boolean tracking;
@@ -58,19 +63,17 @@ public final class PlaylistSwipeToRemove {
      */
     public static void onRemoveListenerSet(ListView list, Object listener) {
         if (listener instanceof PlaylistRemoveHost) {
-            hostList = new WeakReference<>(list);
-            host = new WeakReference<>((PlaylistRemoveHost) listener);
-        } else if (hostList != null && hostList.get() == list) {
-            hostList = null;
-            host = null;
+            hosts.put(list, new WeakReference<>((PlaylistRemoveHost) listener));
+        } else {
+            hosts.remove(list);
         }
         tracking = false;
         swiping = false;
     }
 
     private static PlaylistRemoveHost hostFor(ListView list) {
-        if (hostList == null || host == null || hostList.get() != list) return null;
-        return host.get();
+        WeakReference<PlaylistRemoveHost> reference = hosts.get(list);
+        return reference == null ? null : reference.get();
     }
 
     /**
