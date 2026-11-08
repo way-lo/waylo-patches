@@ -34,6 +34,13 @@ jobs:
       - name: Install dependencies
         run: npm install
 
+      # services.gradle.org has been unreliable from Actions. Use Gradle's GitHub mirror instead.
+      # (This edit stays local to the run: the release only commits the files listed in .releaserc.)
+      - name: Use Gradle mirror
+        run: |
+          sed -i -E 's#https\\://services.gradle.org/distributions/gradle-([0-9.]+)-bin.zip#https\\://github.com/gradle/gradle-distributions/releases/download/v\1/gradle-\1-bin.zip#' gradle/wrapper/gradle-wrapper.properties
+          grep distributionUrl gradle/wrapper/gradle-wrapper.properties
+
       # Semantic release runs its own Gradle build command.
       # Only dev and main branch will generate a release as specified by .releaserc
       - name: Release
