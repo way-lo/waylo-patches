@@ -59,6 +59,20 @@ Or patch locally with a built `.mpp` file, see [Building locally](#-building-loc
 If a later Podcast Addict version stops patching, the error names the fingerprint that no longer matches.
 Compare it with the app's decompiled code, the strings above are the usual first thing to look for.
 
+## Relay for Reddit Pro: Patcheddit v1 patches
+
+- Patches: **Spoof client**, **Modify login WebView** and **Fix /s/ links**, for Relay for Reddit Pro
+  (`reddit.news`) `10.2.40`. The free Relay app (`free.reddit.news`) is not covered.
+- They are copied from [Patcheddit](https://github.com/wchill/patcheddit) **v1.4.0** on purpose. Patcheddit v2.0 and
+  later no longer work on Relay Pro, so do not update these to the v2 patches.
+- Spoof client needs your own Reddit OAuth client ID (the `client-id` option). The redirect URI and user agent
+  options default to RedReader's values, as in Patcheddit.
+- Code: [patches](patches/src/main/kotlin/app/waylo/patches/relaypro) and
+  [extension](extensions/relaypro/src/main/java/app/waylo/extension/relaypro). The extension classes are in the
+  `app.waylo.extension.relaypro` package, and the app context comes from the `shared` extension
+  ([extensions/shared](extensions/shared)), which is Morphe's extension library.
+- The code is under Patcheddit's additional GPL section 7 terms, see [NOTICE](NOTICE).
+
 ## 🛠️ Building locally
 
 Needs Java 21 and a GitHub token that can read packages (Morphe's libraries are hosted on GitHub Packages,
