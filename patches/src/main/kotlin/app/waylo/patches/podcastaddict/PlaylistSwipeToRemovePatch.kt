@@ -2,8 +2,9 @@ package app.waylo.patches.podcastaddict
 
 import app.morphe.patcher.extensions.InstructionExtensions.addInstructions
 import app.morphe.patcher.extensions.InstructionExtensions.addInstructionsWithLabels
-import app.morphe.patcher.patch.classDefBy
+import app.morphe.patcher.patch.classDefByOrNull
 import app.morphe.patcher.patch.mutableClassDefBy
+import app.morphe.patcher.patch.PatchException
 import app.morphe.patcher.patch.patch
 import app.morphe.patcher.util.findFreeRegister
 import app.morphe.patcher.util.p0Register
@@ -19,7 +20,9 @@ private const val EXTENSION_CLASS = "Lapp/waylo/extension/podcastaddict/Playlist
 private const val HOST_INTERFACE = "Lapp/waylo/extension/podcastaddict/PlaylistRemoveHost;"
 private const val HOST_METHOD = "swipeRemoveAt"
 
-private const val FLOAT_VIEW_TYPE = "Landroid/widget/FrameLayout;"
+// The drag-sort list stores its floating drag view in a field typed FrameLayout in build 21719 (2026.7)
+// and plain View in later builds. It is the list's only field of either type.
+private val FLOAT_VIEW_TYPES = setOf("Landroid/widget/FrameLayout;", "Landroid/view/View;")
 
 @Suppress("unused")
 val playlistSwipeToRemovePatch = patch(
@@ -38,11 +41,18 @@ val playlistSwipeToRemovePatch = patch(
         //
         // The list has a field for its floating drag view, which is non-null only while an
         // episode is being dragged to reorder it. It is passed along so a swipe never takes over
-        // from a reorder drag. It is the list's only FrameLayout field.
+        // from a reorder drag. It is the list's only field of the types in FLOAT_VIEW_TYPES.
         // ---------------------------------------------------------------------------------
         val floatViewField = mutableClassDefBy(DRAG_SORT_LIST_CLASS)
             .instanceFields
-            .single { field -> field.type == FLOAT_VIEW_TYPE }
+            .filter { field -> field.type in FLOAT_VIEW_TYPES }
+            .let { candidates ->
+                candidates.singleOrNull()
+                    ?: throw PatchException(
+                        "Expected exactly one floating view field in the drag-sort list, found " +
+                                candidates.map { "${it.name}:${it.type}" }
+                    )
+            }
 
         fun MutableMethod.hookTouch(extensionMethod: String) {
             // The injected code uses a non-range invoke, which only takes registers v0..v15.
@@ -111,18 +121,22 @@ val playlistSwipeToRemovePatch = patch(
 
         val adapterField = mutableClassDefBy(fragmentType)
             .instanceFields
-            .single { field -> field.type == adapterType }
+            .singleOrNull { field -> field.type == adapterType }
+            ?: throw PatchException("Playlist fragment has no single field of the adapter type $adapterType")
 
-        val listenerClass = classDefBy { classDef ->
+        val listenerClass = classDefByOrNull { classDef ->
             !AccessFlags.INTERFACE.isSet(classDef.accessFlags) &&
                     classDef.interfaces.contains(removeListenerType) &&
                     classDef.fields.any { field -> field.type == fragmentType }
-        }
+        } ?: throw PatchException(
+            "No class implements the remove listener $removeListenerType and holds the fragment $fragmentType"
+        )
 
         mutableClassDefBy(listenerClass).apply {
             interfaces.add(HOST_INTERFACE)
 
-            val fragmentField = instanceFields.single { field -> field.type == fragmentType }
+            val fragmentField = instanceFields.singleOrNull { field -> field.type == fragmentType }
+                ?: throw PatchException("Remove listener class has no single field of the fragment type $fragmentType")
 
             methods.add(
                 ImmutableMethod(
