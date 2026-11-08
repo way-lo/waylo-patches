@@ -11,9 +11,12 @@ internal object Constants {
         apkFileType = ApkFileType.APK,
         appIconColor = 0xF4511E,
         targets = listOf(
-            // Version the patch was developed and tested against (build 21719).
+            // Versions the patch has been tested against. Newest first, so Morphe suggests it.
             AppTarget(
-                version = "2026.7"
+                version = "2026.14" // build 21833
+            ),
+            AppTarget(
+                version = "2026.7" // build 21719
             ),
             // The fingerprints avoid obfuscated names, so later versions are expected to work.
             AppTarget(
