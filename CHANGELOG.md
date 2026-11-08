@@ -1,3 +1,9 @@
+## [1.1.0-dev.1](https://github.com/way-lo/waylo-patches/compare/v1.0.5...v1.1.0-dev.1) (2026-11-08)
+
+### ✨ New Features
+
+* swipe to add/remove on Recent and New episodes ([7b740aa](https://github.com/way-lo/waylo-patches/commit/7b740aa60bfce7763ae8e2c5ee44b8b6d2a02cac))
+
 ## [1.0.5](https://github.com/way-lo/waylo-patches/compare/v1.0.4...v1.0.5) (2026-11-08)
 
 ### 🐛 Bug Fixes

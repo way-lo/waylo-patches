@@ -13,9 +13,9 @@ Or patch locally with a built `.mpp` file, see [Building locally](#-building-loc
 ## 🩹 Patches list
 
 <!-- PATCHES_START EXPANDED -->
-> **[v1.0.5](https://github.com/way-lo/waylo-patches/releases/tag/v1.0.5)**&nbsp;&nbsp;•&nbsp;&nbsp;`main`&nbsp;&nbsp;•&nbsp;&nbsp;1 patches total
+> **[v1.1.0-dev.1](https://github.com/way-lo/waylo-patches/releases/tag/v1.1.0-dev.1)**&nbsp;&nbsp;•&nbsp;&nbsp;`dev`&nbsp;&nbsp;•&nbsp;&nbsp;3 patches total
 <details open>
-<summary>📦 Podcast Addict&nbsp;&nbsp;•&nbsp;&nbsp;1 patch</summary>
+<summary>📦 Podcast Addict&nbsp;&nbsp;•&nbsp;&nbsp;3 patches</summary>
 <br>
 
 **Package name:** `com.bambuna.podcastaddict`
@@ -27,7 +27,9 @@ Or patch locally with a built `.mpp` file, see [Building locally](#-building-loc
 
 | 💊&nbsp;Patch | 📜&nbsp;Description | ⚙️&nbsp;Options |
 |----------|----------------|-----------|
-| [Playlist swipe to remove](#playlist-swipe-to-remove) | Swipe an episode left or right in the Playlist to remove it from the playlist. Swiping between the Playlist tabs no longer works, tapping the tab titles does. |  |
+| [Swipe to add/remove on new episodes](#swipe-to-add-remove-on-new-episodes) | On the New episodes screen, swipe an episode left or right to add it to the playlist, or to remove it if it is already there. |  |
+| [Swipe to add/remove on recent episodes](#swipe-to-add-remove-on-recent-episodes) | On the Recent episodes screen, swipe an episode left or right to add it to the playlist, or to remove it if it is already there. |  |
+| [Swipe to remove from playlist](#swipe-to-remove-from-playlist) | Swipe an episode left or right in the Playlist to remove it from the playlist. Swiping between the Playlist tabs no longer works, tapping the tab titles does. |  |
 
 </details>
 
