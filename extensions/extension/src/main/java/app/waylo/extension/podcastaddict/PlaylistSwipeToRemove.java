@@ -105,8 +105,9 @@ public final class PlaylistSwipeToRemove {
                     float dx = Math.abs(event.getX() - downX);
                     float dy = Math.abs(event.getY() - downY);
                     float slop = ViewConfiguration.get(list.getContext()).getScaledTouchSlop();
-                    // Clearly horizontal only, so vertical scrolling and reordering are unaffected.
-                    if (dx <= slop || dx <= dy * 2) return false;
+                    // Clearly horizontal only, so vertical scrolling and reordering are unaffected. The 1.5 ratio matches
+                    // the Playlist gesture host, which hands horizontal drags to the tab pager at that ratio.
+                    if (dx <= slop || dx <= dy * 1.5f) return false;
 
                     View child = list.getChildAt(position - list.getFirstVisiblePosition());
                     if (child == null) return false;
@@ -115,6 +116,10 @@ public final class PlaylistSwipeToRemove {
                     }
                     row = child;
                     swiping = true;
+                    // Since 2026.14 the list sits in a gesture host that re-allows the tab pager to take
+                    // horizontal drags on the first move. Take the touch back for this swipe.
+                    ViewParent pager = list.getParent();
+                    if (pager != null) pager.requestDisallowInterceptTouchEvent(true);
 
                     // Cancel the list's own pending touch handling (long press, press state).
                     MotionEvent cancel = MotionEvent.obtain(event);
