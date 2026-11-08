@@ -5,6 +5,9 @@ name: Build .mpp
 
 on:
   workflow_dispatch:
+  push:
+    branches:
+      - 'test/**'
 
 jobs:
   build:
@@ -27,7 +30,15 @@ jobs:
         env:
           GITHUB_ACTOR: ${{ github.actor }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: ./gradlew :patches:buildAndroid --no-daemon
+        run: |
+          set -o pipefail
+          if ! ./gradlew :patches:buildAndroid --no-daemon 2>&1 | tee build.log; then
+            # Surface compiler errors as annotations, which are readable without opening the log.
+            grep -E "^e: |error:|What went wrong|Could not|Exception" build.log | head -40 | while IFS= read -r line; do
+              echo "::error::${line}"
+            done
+            exit 1
+          fi
 
       - name: Upload .mpp
         uses: actions/upload-artifact@v4
