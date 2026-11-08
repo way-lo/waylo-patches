@@ -1,3 +1,9 @@
+## [1.0.2](https://github.com/way-lo/waylo-patches/compare/v1.0.1...v1.0.2) (2026-11-08)
+
+### 🐛 Bug Fixes
+
+* keep swipes from switching tabs on Podcast Addict 2026.14 ([b9c34be](https://github.com/way-lo/waylo-patches/commit/b9c34be21ec3d62e37ee5614bf822616abe4e0ba))
+
 ## [1.0.1](https://github.com/way-lo/waylo-patches/compare/v1.0.0...v1.0.1) (2026-11-08)
 
 ### 🐛 Bug Fixes
