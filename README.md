@@ -13,7 +13,7 @@ Or patch locally with a built `.mpp` file, see [Building locally](#-building-loc
 ## 🩹 Patches list
 
 <!-- PATCHES_START EXPANDED -->
-> **[v1.1.0](https://github.com/way-lo/waylo-patches/releases/tag/v1.1.0)**&nbsp;&nbsp;•&nbsp;&nbsp;`main`&nbsp;&nbsp;•&nbsp;&nbsp;3 patches total
+> **[v1.1.1-dev.1](https://github.com/way-lo/waylo-patches/releases/tag/v1.1.1-dev.1)**&nbsp;&nbsp;•&nbsp;&nbsp;`dev`&nbsp;&nbsp;•&nbsp;&nbsp;3 patches total
 <details open>
 <summary>📦 Podcast Addict&nbsp;&nbsp;•&nbsp;&nbsp;3 patches</summary>
 <br>
@@ -22,8 +22,8 @@ Or patch locally with a built `.mpp` file, see [Building locally](#-building-loc
 
 **🎯 Supported versions:**
 
-| 2026.14 | 2026.7 |
-| :---: | :---: |
+| 2026.14.1 | 2026.14 | 2026.7 |
+| :---: | :---: | :---: |
 
 | 💊&nbsp;Patch | 📜&nbsp;Description | ⚙️&nbsp;Options |
 |----------|----------------|-----------|
