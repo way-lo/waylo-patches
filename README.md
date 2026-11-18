@@ -13,9 +13,9 @@ Or patch locally with a built `.mpp` file, see [Building locally](#-building-loc
 ## 🩹 Patches list
 
 <!-- PATCHES_START EXPANDED -->
-> **[v1.2.1](https://github.com/way-lo/waylo-patches/releases/tag/v1.2.1)**&nbsp;&nbsp;•&nbsp;&nbsp;`main`&nbsp;&nbsp;•&nbsp;&nbsp;4 patches total
+> **[v1.3.0](https://github.com/way-lo/waylo-patches/releases/tag/v1.3.0)**&nbsp;&nbsp;•&nbsp;&nbsp;`main`&nbsp;&nbsp;•&nbsp;&nbsp;6 patches total
 <details open>
-<summary>📦 Google News&nbsp;&nbsp;•&nbsp;&nbsp;1 patch</summary>
+<summary>📦 Google News&nbsp;&nbsp;•&nbsp;&nbsp;2 patches</summary>
 <br>
 
 **Package name:** `com.google.android.apps.magazines`
@@ -27,7 +27,8 @@ Or patch locally with a built `.mpp` file, see [Building locally](#-building-loc
 
 | 💊&nbsp;Patch | 📜&nbsp;Description | ⚙️&nbsp;Options |
 |----------|----------------|-----------|
-| [Declare MicroG in manifest queries](#declare-microg-in-manifest-queries) | Lets Google News see MicroG on Android 11 and later. Without this, package visibility hides MicroG from the app, the account provider cannot be found, and sign-in ends in "This account already exists on your device". Use it together with the GmsCore support patch from another patch source. |  |
+| [Enable CustomTabs](#enable-customtabs) | Enables CustomTabs to open articles in your default browser. |  |
+| [GmsCore support](#gmscore-support) | Allows Google News to sign in via MicroG (GmsCore) instead of Google Play Services when installed under a renamed package. |  |
 
 </details>
 
@@ -47,6 +48,16 @@ Or patch locally with a built `.mpp` file, see [Building locally](#-building-loc
 | [Swipe to add/remove on new episodes](#swipe-to-add-remove-on-new-episodes) | On the New episodes screen, swipe an episode left or right to add it to the playlist, or to remove it if it is already there. |  |
 | [Swipe to add/remove on recent episodes](#swipe-to-add-remove-on-recent-episodes) | On the Recent episodes screen, swipe an episode left or right to add it to the playlist, or to remove it if it is already there. |  |
 | [Swipe to remove from playlist](#swipe-to-remove-from-playlist) | Swipe an episode left or right in the Playlist to remove it from the playlist. Swiping between the Playlist tabs no longer works, tapping the tab titles does. |  |
+
+</details>
+
+<details open>
+<summary>🌐 Universal&nbsp;&nbsp;•&nbsp;&nbsp;1 patch</summary>
+<br>
+
+| 💊&nbsp;Patch | 📜&nbsp;Description | ⚙️&nbsp;Options |
+|----------|----------------|-----------|
+| [Change package name](#change-package-name) | Appends ".morphe" to the package name by default. Changing the package name of the app can lead to unexpected issues. | • Package name<br>• Update permissions<br>• Update providers |
 
 </details>
 

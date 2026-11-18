@@ -1,3 +1,11 @@
+## [1.3.0](https://github.com/way-lo/waylo-patches/compare/v1.2.1...v1.3.0) (2026-11-18)
+
+### ✨ New Features
+
+* add Change package name patch (ported from patched-up, off by default) ([94785ea](https://github.com/way-lo/waylo-patches/commit/94785ead6396b2c50385ea8dfed9168811ed30fb))
+* **googlenews:** add Enable CustomTabs patch (ported from patched-up) ([d89c3ac](https://github.com/way-lo/waylo-patches/commit/d89c3acdaade27c156baa6c261f61ea06b9a3418))
+* **googlenews:** add GmsCore support patch with the MicroG sign-in fix built in (ported from patched-up), replacing the separate Declare MicroG in manifest queries patch ([2efc934](https://github.com/way-lo/waylo-patches/commit/2efc93411bb72d8fb25a5daa9d9b85eb0f1a9cff))
+
 ## [1.2.1](https://github.com/way-lo/waylo-patches/compare/v1.2.0...v1.2.1) (2026-11-18)
 
 ### 🐛 Bug Fixes
