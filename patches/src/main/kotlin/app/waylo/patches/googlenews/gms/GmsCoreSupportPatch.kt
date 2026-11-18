@@ -358,7 +358,28 @@ val gmsCoreSupportPatch = bytecodePatch(
     compatibleWith(COMPAT)
 
     execute {
-        // region 1 — Transform all GMS string references: com.google.* → app.revanced.*
+        // region 1 — Bypass GMS availability checks so MicroG can handle them instead.
+        //
+        // This must run BEFORE the string transform below. GooglePlayUtilityFingerprint matches on
+        // the string "com.google.android.gms", which the transform rewrites to "app.revanced...".
+        // With morphe-patcher 2.x the fingerprint sees the rewritten code, so resolving it after the
+        // transform finds nothing, and methodOrNull silently skipped the bypass. The patched app then
+        // failed Google sign-in with "This account already exists on your device". (waylo fix)
+
+        // ServiceCheckFingerprint: static void(Context, int) — throws if GMS unavailable.
+        ServiceCheckFingerprint.methodOrNull?.addInstruction(0, "return-void")
+
+        // GooglePlayUtilityFingerprint: static int(Context, int) — returns GMS version code.
+        // Required: without this bypass sign-in fails, so fail the patch rather than produce a
+        // broken APK.
+        GooglePlayUtilityFingerprint.method.let { method ->
+            method.addInstruction(0, "return v0")
+            method.addInstruction(0, "const/4 v0, 0x0")
+        }
+
+        // endregion
+
+        // region 2 — Transform all GMS string references: com.google.* → app.revanced.*
 
         fun transformString(str: String): String? = when {
             str == "com.google" ||
@@ -418,17 +439,5 @@ val gmsCoreSupportPatch = bytecodePatch(
 
         // endregion
 
-        // region 2 — Bypass GMS availability checks so MicroG can handle them instead.
-
-        // ServiceCheckFingerprint: static void(Context, int) — throws if GMS unavailable.
-        ServiceCheckFingerprint.methodOrNull?.addInstruction(0, "return-void")
-
-        // GooglePlayUtilityFingerprint: static int(Context, int) — returns GMS version code.
-        GooglePlayUtilityFingerprint.methodOrNull?.let { method ->
-            method.addInstruction(0, "return v0")
-            method.addInstruction(0, "const/4 v0, 0x0")
-        }
-
-        // endregion
     }
 }
