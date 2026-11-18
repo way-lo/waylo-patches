@@ -1,3 +1,9 @@
+## [1.2.1](https://github.com/way-lo/waylo-patches/compare/v1.2.0...v1.2.1) (2026-11-18)
+
+### 🐛 Bug Fixes
+
+* support Podcast Addict 2026.14.1 (RecyclerView based lists) ([cc87abd](https://github.com/way-lo/waylo-patches/commit/cc87abdf8354f6603f549bf7e451d3d73f90d346))
+
 ## [1.2.0](https://github.com/way-lo/waylo-patches/compare/v1.1.0...v1.2.0) (2026-11-18)
 
 ### ✨ New Features

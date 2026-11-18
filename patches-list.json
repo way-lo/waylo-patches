@@ -1,6 +1,6 @@
 {
   "NOTE": "Do NOT manually edit this file. This file is automatically updated when semantic release (release.yml) runs. Manually editing this file can break your releases and break third party tools that use this file.",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "patches": [
     {
       "name": "Declare MicroG in manifest queries",
@@ -52,6 +52,13 @@
           "formFactor": "MOBILE",
           "targets": [
             {
+              "version": "2026.14.1",
+              "versionCodes": null,
+              "isExperimental": false,
+              "minSdk": null,
+              "description": null
+            },
+            {
               "version": "2026.14",
               "versionCodes": null,
               "isExperimental": false,
@@ -93,6 +100,13 @@
           "formFactor": "MOBILE",
           "targets": [
             {
+              "version": "2026.14.1",
+              "versionCodes": null,
+              "isExperimental": false,
+              "minSdk": null,
+              "description": null
+            },
+            {
               "version": "2026.14",
               "versionCodes": null,
               "isExperimental": false,
@@ -133,6 +147,13 @@
           "signatures": null,
           "formFactor": "MOBILE",
           "targets": [
+            {
+              "version": "2026.14.1",
+              "versionCodes": null,
+              "isExperimental": false,
+              "minSdk": null,
+              "description": null
+            },
             {
               "version": "2026.14",
               "versionCodes": null,
