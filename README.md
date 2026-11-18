@@ -13,7 +13,24 @@ Or patch locally with a built `.mpp` file, see [Building locally](#-building-loc
 ## 🩹 Patches list
 
 <!-- PATCHES_START EXPANDED -->
-> **[v1.1.0](https://github.com/way-lo/waylo-patches/releases/tag/v1.1.0)**&nbsp;&nbsp;•&nbsp;&nbsp;`main`&nbsp;&nbsp;•&nbsp;&nbsp;3 patches total
+> **[v1.2.0](https://github.com/way-lo/waylo-patches/releases/tag/v1.2.0)**&nbsp;&nbsp;•&nbsp;&nbsp;`main`&nbsp;&nbsp;•&nbsp;&nbsp;4 patches total
+<details open>
+<summary>📦 Google News&nbsp;&nbsp;•&nbsp;&nbsp;1 patch</summary>
+<br>
+
+**Package name:** `com.google.android.apps.magazines`
+
+**🎯 Supported versions:**
+
+| 5.163.0.947799485 |
+| :---: |
+
+| 💊&nbsp;Patch | 📜&nbsp;Description | ⚙️&nbsp;Options |
+|----------|----------------|-----------|
+| [Declare MicroG in manifest queries](#declare-microg-in-manifest-queries) | Lets Google News see MicroG on Android 11 and later. Without this, package visibility hides MicroG from the app, the account provider cannot be found, and sign-in ends in "This account already exists on your device". Use it together with the GmsCore support patch from another patch source. |  |
+
+</details>
+
 <details open>
 <summary>📦 Podcast Addict&nbsp;&nbsp;•&nbsp;&nbsp;3 patches</summary>
 <br>

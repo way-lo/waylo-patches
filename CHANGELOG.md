@@ -1,3 +1,9 @@
+## [1.2.0](https://github.com/way-lo/waylo-patches/compare/v1.1.0...v1.2.0) (2026-11-18)
+
+### ✨ New Features
+
+* **googlenews:** declare MicroG in manifest queries ([2030935](https://github.com/way-lo/waylo-patches/commit/203093597a6b9133ed33b683fde4f05701a95fb9))
+
 ## [1.1.0](https://github.com/way-lo/waylo-patches/compare/v1.0.5...v1.1.0) (2026-11-08)
 
 ### ✨ New Features
