@@ -1,3 +1,9 @@
+## [1.3.1](https://github.com/way-lo/waylo-patches/compare/v1.3.0...v1.3.1) (2026-11-18)
+
+### 🐛 Bug Fixes
+
+* **googlenews:** apply GMS availability bypasses before the string transform ([c568517](https://github.com/way-lo/waylo-patches/commit/c5685173be38978a4a8b0a03bfcc15eeaae2811c))
+
 ## [1.3.0](https://github.com/way-lo/waylo-patches/compare/v1.2.1...v1.3.0) (2026-11-18)
 
 ### ✨ New Features
