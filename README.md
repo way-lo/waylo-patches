@@ -78,37 +78,33 @@ Or patch locally with a built `.mpp` file, see [Building locally](#-building-loc
 If a later Podcast Addict version stops patching, the error names the fingerprint that no longer matches.
 Compare it with the app's decompiled code, the strings above are the usual first thing to look for.
 
-## Google News: Declare MicroG in manifest queries
+## Google News
 
-Fixes Google News sign-in failing with **"This account already exists on your device"** when the app is patched
-for [MicroG RE](https://github.com/MorpheApp/MicroG-RE) (seen with
-[docbt/patched-up](https://github.com/docbt/patched-up) v1.10.0, see its
-[issue #34](https://github.com/docbt/patched-up/issues/34)).
+Ported from [docbt/patched-up](https://github.com/docbt/patched-up) so Google News can be patched in one pass
+from this source. Developed against Google News `5.163.0.947799485`.
 
-- **Cause:** On Android 11 and later, package visibility hides apps that are not declared in the manifest
-  `<queries>`. The patched Google News does not declare MicroG (`app.revanced.android.gms`), so it cannot
-  resolve MicroG's `auth.accounts` provider, sees no accounts and opens the add-account screen. The log shows
-  `Failed to find provider info for app.revanced.android.gms.auth.accounts`.
-- **Fix:** The patch adds `<package android:name="app.revanced.android.gms"/>` to `<queries>`, creating the
-  element if it is missing. It does nothing if the entry is already there.
-- **Only edits the manifest**, so later Google News versions are marked experimental rather than unsupported.
-  Developed against `5.163.0.947799485`.
-- **It does not replace the GmsCore patch.** This repo only adds the visibility entry. The package rename and
-  the `com.google.*` to `app.revanced.*` rewrites come from docbt/patched-up's "GmsCore support" patch.
+| Patch | What it does |
+|-------|--------------|
+| **GmsCore support** | Signs in through [MicroG RE](https://github.com/MorpheApp/MicroG-RE) instead of Google Play Services. Rewrites the app's `com.google.*` GMS actions, permissions and authorities to `app.revanced.*`, adds the MicroG spoofing metadata, and bypasses the Play Services availability checks. |
+| **Enable CustomTabs** | Opens articles in your default browser through CustomTabs instead of the in-app WebView. |
+| **Change package name** | Pulled in by both patches above so the app installs next to the stock one (adds `.morphe` by default). Off by default for every other app. |
 
-### Using it with patched-up
+### Changes from patched-up
 
-Patch the stock Google News APK in two passes, with this repo first:
+- **Sign-in fix.** GmsCore support also adds `<package android:name="app.revanced.android.gms"/>` to the
+  manifest `<queries>`. On Android 11 and later, package visibility otherwise hides MicroG from the app: it
+  cannot resolve MicroG's `auth.accounts` provider, sees no accounts, and sign-in ends in
+  **"This account already exists on your device"**
+  ([patched-up issue #34](https://github.com/docbt/patched-up/issues/34)).
+- "Change package name" is opt-in for apps that do not depend on it.
 
-1. Patch the stock APK with this repo's **Declare MicroG in manifest queries**. The package name is still
-   `com.google.android.apps.magazines` at this point.
-2. Patch that output with the patched-up patches.
+### Version notes
 
-The other order does not work, because patched-up renames the package and this patch only applies to
-`com.google.android.apps.magazines`. Morphe Manager may refuse an already-patched APK as input in step 2.
-If it does, patch locally with a built `.mpp` instead (see [Building locally](#-building-locally)).
-
-If patched-up ever declares MicroG in `<queries>` itself, this patch is no longer needed.
+- **Enable CustomTabs is the fragile one.** It finds its targets by obfuscated class names (`Laeah`, `Ladzz`,
+  ...) that change with almost every Google News release, so expect it to fail on a new version until its
+  fingerprints are updated. If it does, untick it and patch with GmsCore support alone.
+- GmsCore support finds its targets by strings, so it usually survives new versions.
+- Do not combine these with the patched-up source on the same APK. The patches are the same and would apply twice.
 
 ## 🛠️ Building locally
 
