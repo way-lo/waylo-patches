@@ -78,6 +78,38 @@ Or patch locally with a built `.mpp` file, see [Building locally](#-building-loc
 If a later Podcast Addict version stops patching, the error names the fingerprint that no longer matches.
 Compare it with the app's decompiled code, the strings above are the usual first thing to look for.
 
+## Google News: Declare MicroG in manifest queries
+
+Fixes Google News sign-in failing with **"This account already exists on your device"** when the app is patched
+for [MicroG RE](https://github.com/MorpheApp/MicroG-RE) (seen with
+[docbt/patched-up](https://github.com/docbt/patched-up) v1.10.0, see its
+[issue #34](https://github.com/docbt/patched-up/issues/34)).
+
+- **Cause:** On Android 11 and later, package visibility hides apps that are not declared in the manifest
+  `<queries>`. The patched Google News does not declare MicroG (`app.revanced.android.gms`), so it cannot
+  resolve MicroG's `auth.accounts` provider, sees no accounts and opens the add-account screen. The log shows
+  `Failed to find provider info for app.revanced.android.gms.auth.accounts`.
+- **Fix:** The patch adds `<package android:name="app.revanced.android.gms"/>` to `<queries>`, creating the
+  element if it is missing. It does nothing if the entry is already there.
+- **Only edits the manifest**, so later Google News versions are marked experimental rather than unsupported.
+  Developed against `5.163.0.947799485`.
+- **It does not replace the GmsCore patch.** This repo only adds the visibility entry. The package rename and
+  the `com.google.*` to `app.revanced.*` rewrites come from docbt/patched-up's "GmsCore support" patch.
+
+### Using it with patched-up
+
+Patch the stock Google News APK in two passes, with this repo first:
+
+1. Patch the stock APK with this repo's **Declare MicroG in manifest queries**. The package name is still
+   `com.google.android.apps.magazines` at this point.
+2. Patch that output with the patched-up patches.
+
+The other order does not work, because patched-up renames the package and this patch only applies to
+`com.google.android.apps.magazines`. Morphe Manager may refuse an already-patched APK as input in step 2.
+If it does, patch locally with a built `.mpp` instead (see [Building locally](#-building-locally)).
+
+If patched-up ever declares MicroG in `<queries>` itself, this patch is no longer needed.
+
 ## 🛠️ Building locally
 
 Needs Java 21 and a GitHub token that can read packages (Morphe's libraries are hosted on GitHub Packages,
