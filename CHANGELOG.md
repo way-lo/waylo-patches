@@ -1,3 +1,9 @@
+## [1.3.3-dev.1](https://github.com/way-lo/waylo-patches/compare/v1.3.2...v1.3.3-dev.1) (2026-11-27)
+
+### 🐛 Bug Fixes
+
+* **googlenews:** rename the app's own permissions and providers when changing the package name ([af777cb](https://github.com/way-lo/waylo-patches/commit/af777cb3449c521c7a82553c6b66e1d6e906dc6a))
+
 ## [1.3.2](https://github.com/way-lo/waylo-patches/compare/v1.3.1...v1.3.2) (2026-11-27)
 
 ### 🐛 Bug Fixes
