@@ -1,3 +1,9 @@
+## [1.3.2](https://github.com/way-lo/waylo-patches/compare/v1.3.1...v1.3.2) (2026-11-27)
+
+### 🐛 Bug Fixes
+
+* episode list swipes stop working a while after opening the screen (2026.7, 2026.14) ([1f0143c](https://github.com/way-lo/waylo-patches/commit/1f0143c06d8d58fffa2bfa4943761cdea63e9cb4))
+
 ## [1.3.1](https://github.com/way-lo/waylo-patches/compare/v1.3.0...v1.3.1) (2026-11-18)
 
 ### 🐛 Bug Fixes
