@@ -13,7 +13,7 @@ Or patch locally with a built `.mpp` file, see [Building locally](#-building-loc
 ## 🩹 Patches list
 
 <!-- PATCHES_START EXPANDED -->
-> **[v1.3.3](https://github.com/way-lo/waylo-patches/releases/tag/v1.3.3)**&nbsp;&nbsp;•&nbsp;&nbsp;`main`&nbsp;&nbsp;•&nbsp;&nbsp;6 patches total
+> **[v1.3.4](https://github.com/way-lo/waylo-patches/releases/tag/v1.3.4)**&nbsp;&nbsp;•&nbsp;&nbsp;`main`&nbsp;&nbsp;•&nbsp;&nbsp;6 patches total
 <details open>
 <summary>📦 Google News&nbsp;&nbsp;•&nbsp;&nbsp;2 patches</summary>
 <br>
@@ -40,8 +40,8 @@ Or patch locally with a built `.mpp` file, see [Building locally](#-building-loc
 
 **🎯 Supported versions:**
 
-| 2026.14.1 | 2026.14 | 2026.7 |
-| :---: | :---: | :---: |
+| 2026.15 | 2026.14.1 | 2026.14 | 2026.7 |
+| :---: | :---: | :---: | :---: |
 
 | 💊&nbsp;Patch | 📜&nbsp;Description | ⚙️&nbsp;Options |
 |----------|----------------|-----------|

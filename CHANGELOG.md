@@ -1,3 +1,9 @@
+## [1.3.4](https://github.com/way-lo/waylo-patches/compare/v1.3.3...v1.3.4) (2026-11-27)
+
+### 🐛 Bug Fixes
+
+* **podcastaddict:** list 2026.15 as supported and update the README ([95e8244](https://github.com/way-lo/waylo-patches/commit/95e824451fb7a4ce7fec8550551698c449aab6fb))
+
 ## [1.3.3](https://github.com/way-lo/waylo-patches/compare/v1.3.2...v1.3.3) (2026-11-27)
 
 ### 🐛 Bug Fixes
