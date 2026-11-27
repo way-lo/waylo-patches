@@ -13,7 +13,7 @@ Or patch locally with a built `.mpp` file, see [Building locally](#-building-loc
 ## 🩹 Patches list
 
 <!-- PATCHES_START EXPANDED -->
-> **[v1.3.2](https://github.com/way-lo/waylo-patches/releases/tag/v1.3.2)**&nbsp;&nbsp;•&nbsp;&nbsp;`main`&nbsp;&nbsp;•&nbsp;&nbsp;6 patches total
+> **[v1.3.3](https://github.com/way-lo/waylo-patches/releases/tag/v1.3.3)**&nbsp;&nbsp;•&nbsp;&nbsp;`main`&nbsp;&nbsp;•&nbsp;&nbsp;6 patches total
 <details open>
 <summary>📦 Google News&nbsp;&nbsp;•&nbsp;&nbsp;2 patches</summary>
 <br>
